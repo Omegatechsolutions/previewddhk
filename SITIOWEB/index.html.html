@@ -1,0 +1,309 @@
+<html><head><base href="." />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domo Digital Hunab Ku - Proyecciones Infantiles</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Bubblegum Sans', cursive;
+            background: linear-gradient(135deg, #1e88e5, #ffffff);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(25, 118, 210, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: auto;
+        }
+
+        .movie-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            margin-bottom: 80px;
+        }
+
+        .movie-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            width: 300px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .movie-card h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .floating-bubbles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-100px) translateX(20px);
+            }
+        }
+
+        .ticket-button {
+            background: rgba(33, 150, 243, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .ticket-button:hover {
+            background: rgba(25, 118, 210, 0.5);
+        }
+
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            color: white;
+            text-decoration: none;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+        }
+
+        .whatsapp-message {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            max-width: 250px;
+            font-size: 14px;
+            color: #333;
+            z-index: 999;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .calendar-section {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .calendar-section h2 {
+            color: #1976d2;
+            margin-bottom: 20px;
+        }
+
+        .calendar-input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(25, 118, 210, 0.3);
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-bubbles" id="bubbles"></div>
+    
+    <header class="header">
+        <img src="domo_digital_hk_logo-transformed-modified.png" alt="Hunab Ku Domo Digital logo featuring a stylized VR headset in blue on white circular background" class="logo">
+        <h1>🎬 Domo Digital Hunab Ku 🎪</h1>
+        <p>¡La mejor experiencia cinematográfica para los pequeños!</p>
+    </header>
+
+    <div class="movie-container" id="movieContainer">
+        <!-- Las películas se agregarán dinámicamente -->
+    </div>
+
+    <div class="calendar-section">
+        <h2>Reservaciones: Elige la fecha de tu evento</h2>
+        <input type="text" id="calendar" class="calendar-input" placeholder="Selecciona una fecha">
+    </div>
+
+    <div class="whatsapp-message">
+        Escríbenos al WhatsApp y reserva la fecha de tu evento.
+    </div>
+
+    <a href="https://wa.me/1234567890" class="whatsapp-button" target="_blank">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.089.535 4.053 1.477 5.757L.103 23.457l5.7-1.374A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm5.999 16.938c-.248.699-1.437 1.343-2.349 1.521-.613.118-1.413.214-4.103-.891-3.45-1.412-5.673-4.881-5.844-5.104-.167-.223-1.406-1.871-1.406-3.572 0-1.702.889-2.533 1.201-2.881.312-.348.682-.435.91-.435.228 0 .456.001.657.013.213.012.498-.082.778.595.284.689.969 2.384 1.054 2.557.085.174.142.381.028.61-.114.229-.171.372-.342.572-.171.2-.358.447-.512.602-.171.174-.349.362-.149.707.199.346.89 1.478 1.911 2.392 1.319 1.182 2.429 1.547 2.775 1.719.346.172.544.145.744-.086s.862-1.001.09-1.001z"/>
+        </svg>
+    </a>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+    <script>
+        // Crear burbujas flotantes
+        const bubbleContainer = document.getElementById('bubbles');
+        for (let i = 0; i < 20; i++) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.top = `${Math.random() * 100}%`;
+            bubble.style.width = `${Math.random() * 50 + 20}px`;
+            bubble.style.height = bubble.style.width;
+            bubble.style.animationDelay = `${Math.random() * 8}s`;
+            bubbleContainer.appendChild(bubble);
+        }
+
+        // Inicializar el calendario
+        flatpickr("#calendar", {
+            dateFormat: "Y-m-d",
+            minDate: "today",
+            maxDate: new Date().fp_incr(60), // 60 días desde hoy
+            locale: {
+                firstDayOfWeek: 1,
+                weekdays: {
+                    shorthand: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+                    longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+                },
+                months: {
+                    shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                    longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+                }
+            },
+            onChange: function(selectedDates, dateStr) {
+                alert(`Has seleccionado la fecha: ${dateStr}`);
+            }
+        });
+
+        // Datos de películas
+        const movies = [
+            {
+                title: "Dinosaurios en 3D",
+                description: "¡Una aventura prehistórica inolvidable!",
+                age: "Todas las edades"
+            },
+            {
+                title: "Océano Maravilloso",
+                description: "Una mágica aventura submarina",
+                age: "Todas las edades"
+            },
+            {
+                title: "Space Junk 3D (Basura espacial)",
+                description: "Explora el espacio y las consecuencias tecnologicas en 3D",
+                age: "Todas las edades"
+            },
+            {
+                title: "Círculo Polar Ártico en 3D",
+                description: "Un viaje a traves del circulo polar conoce las especies que habitan",
+                age: "Todas las edades"
+            }
+        ];
+
+        // Crear tarjetas de películas
+        const movieContainer = document.getElementById('movieContainer');
+        movies.forEach(movie => {
+            const card = document.createElement('div');
+            card.className = 'movie-card';
+            card.innerHTML = `
+                <h3>${movie.title}</h3>
+                <p>${movie.description}</p>
+                <p>Edad recomendada: ${movie.age}</p>
+                <button class="ticket-button" onclick="reserveTicket('${movie.title}')">
+                    Reservar Entradas
+                </button>
+            `;
+            movieContainer.appendChild(card);
+        });
+
+        function reserveTicket(movieTitle) {
+            alert(`¡Gracias por tu interés en "${movieTitle}"!\nPronto podrás reservar tus entradas en línea.`);
+        }
+    </script>
+</body></html>
